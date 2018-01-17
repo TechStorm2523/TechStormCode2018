@@ -59,10 +59,11 @@ public class PathfinderPoint2D{
         }
         public Line2D.Double lineOnSlopeForDistance(Line2D.Double path, double distance) {
         	double theta = angleFromLine(path, 0);
-        	double xStepBack = SAFE_DIST*(Math.cos(theta));
-        	double yStepBack = SAFE_DIST*(Math.sin(theta));
+        	double xStep = distance*(Math.cos(theta));
+        	double yStep = distance*(Math.sin(theta));
         	
-        	return new Point2D.Double(getXofIntersect(path, obs)-xStepBack, getYofIntersect(path, obs)-yStepBack);
+        	Line2D.Double newPath = new Line2D.Double(path.getP1(), new Point2D.Double(path.getX1() + xStep, path.getY1() + yStep));
+        	return newPath;
         }
         public Point2D.Double safePlace(Line2D.Double path, Line2D.Double obs){
         	
@@ -74,17 +75,33 @@ public class PathfinderPoint2D{
         }
         
         public Line2D.Double safeLine(double OrigTheta, Point2D.Double origin, Point2D.Double goalCopy, Line2D.Double obs){
-			
+			int thetaWorkingPositive = 0;
+			int thetaWorkingNegative = 0;
         	
-        	
-        	Line2D.Double safeLine = new Line2D.Double(origin, goalCopy);
+        	Line2D.Double safeLineLong = new Line2D.Double(origin, goalCopy);
+        	Line2D.Double safeLine = lineOnSlopeForDistance(new Line2D.Double(origin, goalCopy), 1);
 			
-			while(safeLine.intersectsLine(obs)) {
-				
-				
-				
+			while(safeLineLong.intersectsLine(obs)) {
+				thetaWorkingPositive++;
+				safeLine.setLine(origin, new Point2D.Double(safeLine.getX2() + getDeltaXForArc(OrigTheta, 1), safeLine.getY2() + getDeltaYForArc(OrigTheta, 1)) );
+				safeLineLong.setLine(lineOnSlopeForDistance(safeLine, Double.MAX_VALUE));
+				//DeltaX = -rSin(theta - pi/2 + OrigTheta)
+				//DeltaY = rCos(theta - pi/2 + startAngle)
 				
 			}
+			safeLineLong = new Line2D.Double(origin, goalCopy);
+        	safeLine = lineOnSlopeForDistance(new Line2D.Double(origin, goalCopy), 1);
+			
+			while(safeLineLong.intersectsLine(obs)) {
+				thetaWorkingPositive++;
+				safeLine.setLine(origin, new Point2D.Double(safeLine.getX2() + getDeltaXForArc(OrigTheta, -1), safeLine.getY2() + getDeltaYForArc(OrigTheta, 1)) );
+				safeLineLong.setLine(lineOnSlopeForDistance(safeLine, Double.MAX_VALUE));
+				//DeltaX = -rSin(theta - pi/2 + OrigTheta)
+				//DeltaY = rCos(theta - pi/2 + startAngle)
+				
+			}
+			
+			
         	
         	return null;
 			
