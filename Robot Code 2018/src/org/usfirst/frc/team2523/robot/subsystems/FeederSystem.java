@@ -1,5 +1,7 @@
 package org.usfirst.frc.team2523.robot.subsystems;
 
+import java.awt.geom.Path2D;
+
 import org.usfirst.frc.team2523.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.Spark;
@@ -11,21 +13,25 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
    
     	public class FeederSystem extends Subsystem {
-    		Spark FeedMotor = new Spark(RobotMap.FeedMotor);
+    		Spark FeedMotorLeft = new Spark(RobotMap.FeedMotorLeft);
+    		Spark FeedMotorRight = new Spark(RobotMap.FeedMotorRight);
+
     		
     		
     		
     		public void FeedIn(){
-    			FeedMotor.set(1);
-    			
+    			FeedMotorLeft.set(1);
+    			FeedMotorRight.set(1);
     			
     		}
     		public void FeedOut(){
-    			FeedMotor.set(-1);
+    			FeedMotorLeft.set(-1);
+    			FeedMotorRight.set(-1);
     		}
     		
     		public void StopFeed() {
-    			FeedMotor.set(0);
+    			FeedMotorLeft.set(0);
+    			FeedMotorRight.set(0);
     		}
     		public void initDefaultCommand() {
     			// Set the default command for a subsystem here.

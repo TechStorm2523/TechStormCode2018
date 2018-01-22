@@ -91,32 +91,18 @@ public class PathfinderPoint2D{
         
      //Returns a new Line2D which is the line which most efficiently avoids an obstacle.
         public Line2D.Double safeLine(double OrigTheta, Point2D.Double origin, Point2D.Double goalCopy, Line2D.Double obs){
-			int thetaWorkingPositive = 0;
-			int thetaWorkingNegative = 0;
+			int thetaWorking = 0;
+			
         	
         	Line2D.Double safeLineLong = new Line2D.Double(origin, goalCopy);
         	Line2D.Double safeLine = lineOnSlopeForDistance(new Line2D.Double(origin, goalCopy), 1);
 			
-			while(safeLineLong.intersectsLine(obs)) {
-				thetaWorkingPositive++;
-				safeLine.setLine(origin, new Point2D.Double(safeLine.getX2() + getDeltaXForArc(OrigTheta, 1), safeLine.getY2() + getDeltaYForArc(OrigTheta, 1)) );
-				safeLineLong.setLine(lineOnSlopeForDistance(safeLine, Double.MAX_VALUE));
-				//DeltaX = -rSin(theta - pi/2 + OrigTheta)
-				//DeltaY = rCos(theta - pi/2 + startAngle)
-				
-			}
-			safeLineLong = new Line2D.Double(origin, goalCopy);
-        	safeLine = lineOnSlopeForDistance(new Line2D.Double(origin, goalCopy), 1);
-			
-			while(safeLineLong.intersectsLine(obs)) {
-				thetaWorkingPositive++;
-				safeLine.setLine(origin, new Point2D.Double(safeLine.getX2() + getDeltaXForArc(OrigTheta, -1), safeLine.getY2() + getDeltaYForArc(OrigTheta, 1)) );
-				safeLineLong.setLine(lineOnSlopeForDistance(safeLine, Double.MAX_VALUE));
-				//DeltaX = -rSin(theta - pi/2 + OrigTheta)
-				//DeltaY = rCos(theta - pi/2 + startAngle)
-				
-			}
-			
+        	Point2D.Double intersect = new Point2D.Double(getXofIntersect(safeLine, obs), getYofIntersect(safeLine, obs));
+        	
+        	safeLine.setLine(origin, new Point2D.Double(safeLine.getX2() + getDeltaXForArc(OrigTheta, 1), safeLine.getY2() + getDeltaYForArc(OrigTheta, 1)) );
+			safeLineLong.setLine(lineOnSlopeForDistance(safeLine, Double.MAX_VALUE));
+			//DeltaX = -rSin(theta - pi/2 + OrigTheta)
+			//DeltaY = rCos(theta - pi/2 + startAngle)
 			
         	
         	return null;
