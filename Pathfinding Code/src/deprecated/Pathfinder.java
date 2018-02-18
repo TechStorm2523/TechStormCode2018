@@ -1,4 +1,4 @@
-package classes;
+package deprecated;
 import java.io.*;
 public class Pathfinder {
 	//This method takes two cartesean coordinate points, the robot and the goal, and the original heading of the robot.

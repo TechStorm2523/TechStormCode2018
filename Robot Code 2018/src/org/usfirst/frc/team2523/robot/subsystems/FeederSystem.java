@@ -13,20 +13,38 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
    
     	public class FeederSystem extends Subsystem {
-    		Spark FeedMotorLeft = new Spark(RobotMap.FeedMotorLeft);
-    		Spark FeedMotorRight = new Spark(RobotMap.FeedMotorRight);
-
+    		Spark FeedMotorLeft = new Spark(RobotMap.feedL);
+    		Spark FeedMotorRight = new Spark(RobotMap.feedR);
     		
     		
+    		public void Tenderness() {
+    			
+    			FeedMotorLeft.set(.5);
+    			FeedMotorRight.set(-.5);
+    			
+    		}
+    		
+    		public void FeedInL(){
+    			FeedMotorLeft.set(-1);
+    			
+    			
+    			
+    		}
+    		public void FeedInR(){
+    			
+    			FeedMotorRight.set(1);
+    			
+    			
+    		}
     		
     		public void FeedIn(){
     			FeedMotorLeft.set(1);
-    			FeedMotorRight.set(1);
+    			FeedMotorRight.set(-1);
     			
     		}
     		public void FeedOut(){
     			FeedMotorLeft.set(-1);
-    			FeedMotorRight.set(-1);
+    			FeedMotorRight.set(1);
     		}
     		
     		public void StopFeed() {

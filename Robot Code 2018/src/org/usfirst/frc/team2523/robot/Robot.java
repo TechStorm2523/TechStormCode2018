@@ -14,6 +14,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team2523.robot.commands.ExampleCommand;
 import org.usfirst.frc.team2523.robot.subsystems.ExampleSubsystem;
+import org.usfirst.frc.team2523.robot.subsystems.FeederSystem;
+import org.usfirst.frc.team2523.robot.subsystems.LiftSystem;
 import org.usfirst.frc.team2523.robot.subsystems.driveTeleop;
 
 /**
@@ -24,11 +26,18 @@ import org.usfirst.frc.team2523.robot.subsystems.driveTeleop;
  * project.
  */
 public class Robot extends TimedRobot {
+	public static boolean OVR = false;
 	public static final ExampleSubsystem kExampleSubsystem
 			= new ExampleSubsystem();
 	public static final driveTeleop kDriveTeleop
 			= new driveTeleop();
+	public static final LiftSystem kLift
+			= new LiftSystem();
+	
+	public static final FeederSystem kFeederSystem
+			= new FeederSystem();
 	public static OI m_oi;
+	
 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -98,6 +107,8 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void teleopInit() {
+		kDriveTeleop.driveSetup();
+		kLift.liftSetup();
 		// This makes sure that the autonomous stops running when
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
@@ -113,6 +124,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		SmartDashboard.putBoolean("Override", this.OVR);
 	}
 
 	/**

@@ -1,4 +1,4 @@
-package classes;
+package pathFinding;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,7 +24,7 @@ public class PathfinderPoint2D{
         		if(path.intersectsLine((Line2D.Double) line)) {
         			return (Line2D.Double) line;
         		}
-        		
+        	
         	}
         		
         	return null;
