@@ -15,7 +15,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 
 public class LiftSystem extends Subsystem {
-	public final double MAX_HEIGHT = 127500.0;
+	public final double MAX_HEIGHT = 127000.0;
+	//1821 per inch
 	WPI_TalonSRX L = new WPI_TalonSRX(RobotMap.liftMotorL);
 	WPI_TalonSRX R = new WPI_TalonSRX(RobotMap.liftMotorR);
 	

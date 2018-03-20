@@ -26,6 +26,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
     		
     		public void FeedInL(){
     			FeedMotorLeft.set(-1);
+    			FeedMotorRight.set(-1);
     			
     			
     			
@@ -33,6 +34,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
     		public void FeedInR(){
     			
     			FeedMotorRight.set(1);
+    			FeedMotorLeft.set(1);
     			
     			
     		}

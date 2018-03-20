@@ -7,12 +7,12 @@ import edu.wpi.first.wpilibj.command.PIDSubsystem;
 /**
  *
  */
-public class Auto_Drive_Left extends PIDSubsystem {
+public class ADR extends PIDSubsystem {
 
     // Initialize your subsystem here
-    public Auto_Drive_Left() {
+    public ADR() {
     	
-    	super(0, 0, 0);
+    	super(.0001,.001,0);
         // Use these to get going:
         // setSetpoint() -  Sets where the PID controller should move the system
         //                  to
@@ -25,17 +25,16 @@ public class Auto_Drive_Left extends PIDSubsystem {
     }
 
     protected double returnPIDInput() {
-    	
-    	
         // Return your input value for the PID loop
         // e.g. a sensor, like a potentiometer:
         // yourPot.getAverageVoltage() / kYourMaxVoltage;
-        return Robot.kDriveTeleop.getL();
+       // return Robot.kDriveTeleop.getRPos();
+    	return Robot.kAutoDrive.getRight();
     }
 
     protected void usePIDOutput(double output) {
-    	Robot.kDriveTeleop.setL(output);
         // Use output to drive your system, like a motor
         // e.g. yourMotor.set(output);
+    	Robot.kAutoDrive.setRight(output);
     }
 }

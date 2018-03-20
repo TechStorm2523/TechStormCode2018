@@ -12,10 +12,19 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import org.usfirst.frc.team2523.robot.commands.Auto1;
 import org.usfirst.frc.team2523.robot.commands.ExampleCommand;
+import org.usfirst.frc.team2523.robot.commands.driveTest;
+import org.usfirst.frc.team2523.robot.commands.testAuto2;
+import org.usfirst.frc.team2523.robot.commands.testAutoDrive;
+import org.usfirst.frc.team2523.robot.subsystems.ADL;
+import org.usfirst.frc.team2523.robot.subsystems.ADR;
+import org.usfirst.frc.team2523.robot.subsystems.AutoDrive;
 import org.usfirst.frc.team2523.robot.subsystems.ExampleSubsystem;
 import org.usfirst.frc.team2523.robot.subsystems.FeederSystem;
 import org.usfirst.frc.team2523.robot.subsystems.LiftSystem;
+import org.usfirst.frc.team2523.robot.subsystems.PID_LiftSystem;
 import org.usfirst.frc.team2523.robot.subsystems.driveTeleop;
 
 /**
@@ -33,9 +42,21 @@ public class Robot extends TimedRobot {
 			= new driveTeleop();
 	public static final LiftSystem kLift
 			= new LiftSystem();
+	public static final ADR KADR
+			= new ADR();
+	
+	public static final ADL KADL
+			= new ADL();
+	
+	public static final PID_LiftSystem kPIDL
+			= new PID_LiftSystem();
+	
+	
 	
 	public static final FeederSystem kFeederSystem
 			= new FeederSystem();
+	
+	public static final AutoDrive kAutoDrive = new AutoDrive();
 	public static OI m_oi;
 	
 
@@ -48,9 +69,12 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void robotInit() {
+		System.out.println("Test RobotInit");
+		kLift.liftSetup();
 		m_oi = new OI();
-		m_chooser.addDefault("Default Auto", new ExampleCommand());
+		m_chooser.addDefault("Default Auto", new testAutoDrive());
 		// chooser.addObject("My Auto", new MyAutoCommand());
+		m_chooser.addObject("TestAuto", new Auto1());
 		SmartDashboard.putData("Auto mode", m_chooser);
 	}
 
@@ -82,6 +106,8 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
+		//kLift.liftSetup();
+		System.out.println("Test AutoInit");
 		m_autonomousCommand = m_chooser.getSelected();
 
 		/*
@@ -103,12 +129,15 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
+		
 	}
 
 	@Override
 	public void teleopInit() {
+		System.out.println("Test TeleopInit");
 		kDriveTeleop.driveSetup();
-		kLift.liftSetup();
+		//kLift.liftSetup();
+		//kLift.liftSetup();
 		// This makes sure that the autonomous stops running when
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
@@ -123,6 +152,7 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
+		System.out.print("Test TeleopPeriodic");
 		Scheduler.getInstance().run();
 		SmartDashboard.putBoolean("Override", this.OVR);
 	}

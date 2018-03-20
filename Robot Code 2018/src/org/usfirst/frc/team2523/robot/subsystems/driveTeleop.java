@@ -18,8 +18,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class driveTeleop extends Subsystem {
 	WPI_TalonSRX leftF = new WPI_TalonSRX(RobotMap.leftMotorFront);
 	WPI_TalonSRX rightF = new WPI_TalonSRX(RobotMap.rightMotorFront);
-	WPI_TalonSRX leftR = new WPI_TalonSRX(RobotMap.leftMotorRear);
-	WPI_TalonSRX rightR = new WPI_TalonSRX(RobotMap.rightMotorRear);
+	public WPI_TalonSRX leftR = new WPI_TalonSRX(RobotMap.leftMotorRear);
+	public WPI_TalonSRX rightR = new WPI_TalonSRX(RobotMap.rightMotorRear);
 	double exY;
 	double exT;
 	double a = .5;
@@ -47,22 +47,22 @@ public class driveTeleop extends Subsystem {
     	exT = (a*Math.pow(t, 3))+ (1-a)*t;
     	d.arcadeDrive(exY, -exT);
     	
-    	SmartDashboard.putNumber("Left Encoder", leftR.getSelectedSensorPosition(0));
-    	SmartDashboard.putNumber("Right Encoder", rightR.getSelectedSensorPosition(0));
+    	SmartDashboard.putNumber("Left Encoder", getLPos());
+    	SmartDashboard.putNumber("Right Encoder", getRPos());
     	
     }
     
     public void setL(double value) {
-    	leftF.set(value);
+    	leftR.set(value);
     	
     }
     public void setR(double value) {
-    	rightF.set(value);
+    	rightR.set(value);
     	
     }
     
     public double getLPos() {
-    	return leftR.getSelectedSensorPosition(0);
+    	return -leftR.getSelectedSensorPosition(0);
     }
     public double getL() {
     	return leftR.getSelectedSensorVelocity(0);
