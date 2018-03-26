@@ -5,15 +5,15 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  *
  */
-public class Auto1 extends CommandGroup {
+public class NewLeft extends CommandGroup {
 
-    public Auto1() {
+    public NewLeft() {
+    	
+    	
+    	addSequential(new TurnAngle(180));
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
-    	addSequential(new Go(108));
-    	
-    	
         // these will run in order.
 
         // To run multiple commands at the same time,

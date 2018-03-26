@@ -68,6 +68,14 @@ public class Obstacle {
 	private Line2D.Double diagPos;
 	private Line2D.Double diagNeg;
 	
+	public Line2D.Double getDiagPos(){
+		return diagPos;
+	}
+	
+	public Line2D.Double getDiagNeg(){
+		return diagNeg;
+	}
+	
 	
 	public Point2D.Double getCenter(){
 		return center;

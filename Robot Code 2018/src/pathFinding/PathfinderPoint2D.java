@@ -19,7 +19,7 @@ public class PathfinderPoint2D{
 
 
 	
-	public Line2D.Double checkObsInts(Map<String, Obstacle> obs, Line2D.Double path){
+	public Obstacle checkObstacles(Map<String, Obstacle> obs, Line2D.Double path) {
 		Obstacle temp;
 		String key;
 		List<String> keysIntersect = new ArrayList<String>();
@@ -48,22 +48,29 @@ public class PathfinderPoint2D{
 				closestKey = s;
 			}
 		}
+		return obs.get(closestKey);
+	}
+	
+	public Line2D.Double checkLines(Obstacle closeOb, Line2D.Double path){
 		
+		Line2D.Double closestLine = null;
+		double minLineDist = java.lang.Double.MAX_VALUE;
+		Point2D.Double intersect;
+		for(Line2D.Double l : closeOb.lines) {
+			intersect = new Point2D.Double(getXofIntersect(path,l),getYofIntersect(path,l));
+			if(intersect.distance(path.getP1())>minLineDist) {
+				minLineDist = intersect.distance(path.getP1());
+				closestLine = l;
+			}
+		}
+		return closestLine;
+	}
+	
+	public Line2D.Double checkObsInts(Map<String, Obstacle> obs, Line2D.Double path){
+		Obstacle obst = checkObstacles(obs,path);
+		Line2D.Double line = checkLines(obst,path);
 		
-		
-		Obstacle closeOb = obs.get(closestKey);
-		for(Line2D.Double l : closeOb.lines)
-		/**
-		 * Procedure
-		 * 
-		 * run through array of obstacles, getting keys and storing in array, until no more intersections found
-		 *  
-		 * compare center distances to get closest one
-		 * 
-		 * return that one
-		 */
-		
-		return null;
+		return line;
 	}
 	
 	//Checks for an intersection with an obstacle and returns the index in the array of said obstacle. 
@@ -203,13 +210,17 @@ public class PathfinderPoint2D{
 
 		return new Point2D.Double(getXofIntersect(path, obs)-xStepBack, getYofIntersect(path, obs)-yStepBack);
 	}
-	public Line2D.Double safeLine(){
+	public Line2D.Double safeLine(Line2D.Double path, Obstacle obstacle, Point2D.Double intersect){ 
 		
-		/**
-		 * Procedure:
-		 * 
-		 * 
-		 */
+		Line2D.Double diag1 = obstacle.getDiagPos();
+		Line2D.Double diag2 = obstacle.getDiagNeg();
+		
+		
+		
+		
+		
+		
+		
 		
 		return null;
 	}
@@ -336,6 +347,15 @@ public class PathfinderPoint2D{
 	 */
 	public double distanceToGo(Point2D origin, Point2D goal ) {
 		return origin.distance(goal);
+	}
+	
+	public Line2D.Double makePerpendicular(Line2D.Double orig){
+		
+		double slope;
+		
+		
+		return null;
+		
 	}
 
 }

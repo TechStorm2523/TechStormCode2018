@@ -30,6 +30,9 @@ public class driveTeleop extends Subsystem {
 	
 	DifferentialDrive d = new DifferentialDrive(leftR,rightR);
 	
+	
+	
+	
 	public void driveSetup() {// Config motors and reset sensors
 		leftF.follow(leftR);
 		rightF.follow(rightR);

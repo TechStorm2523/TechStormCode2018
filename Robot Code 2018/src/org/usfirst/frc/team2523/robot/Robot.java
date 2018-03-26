@@ -7,6 +7,7 @@
 
 package org.usfirst.frc.team2523.robot;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -15,6 +16,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team2523.robot.commands.Auto1;
 import org.usfirst.frc.team2523.robot.commands.ExampleCommand;
+import org.usfirst.frc.team2523.robot.commands.NewCenter;
+import org.usfirst.frc.team2523.robot.commands.NewLeft;
+//import org.usfirst.frc.team2523.robot.commands.LeftSide;
+//import org.usfirst.frc.team2523.robot.commands.RightSide;
+import org.usfirst.frc.team2523.robot.commands.Center;
+//import org.usfirst.frc.team2523.robot.commands.DeluxeChooser;
 import org.usfirst.frc.team2523.robot.commands.driveTest;
 import org.usfirst.frc.team2523.robot.commands.testAuto2;
 import org.usfirst.frc.team2523.robot.commands.testAutoDrive;
@@ -35,6 +42,10 @@ import org.usfirst.frc.team2523.robot.subsystems.driveTeleop;
  * project.
  */
 public class Robot extends TimedRobot {
+	
+	
+	
+	public static String gameData;
 	public static boolean OVR = false;
 	public static final ExampleSubsystem kExampleSubsystem
 			= new ExampleSubsystem();
@@ -75,6 +86,12 @@ public class Robot extends TimedRobot {
 		m_chooser.addDefault("Default Auto", new testAutoDrive());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		m_chooser.addObject("TestAuto", new Auto1());
+		m_chooser.addObject("Center", new Center());
+		m_chooser.addObject("New Center", new NewCenter());
+		m_chooser.addObject("New Left", new NewLeft());
+		//m_chooser.addObject("left Side", new LeftSide());
+		//m_chooser.addObject("right Side", new RightSide());
+		//m_chooser.addObject("deluxe Chooser", new DeluxeChooser()); //From dead center
 		SmartDashboard.putData("Auto mode", m_chooser);
 	}
 
@@ -109,6 +126,8 @@ public class Robot extends TimedRobot {
 		//kLift.liftSetup();
 		System.out.println("Test AutoInit");
 		m_autonomousCommand = m_chooser.getSelected();
+		gameData = DriverStation.getInstance().getGameSpecificMessage();
+		
 
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",

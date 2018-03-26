@@ -1,20 +1,26 @@
 package org.usfirst.frc.team2523.robot.commands;
 
+import org.usfirst.frc.team2523.robot.Robot;
+
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
  *
  */
-public class Auto1 extends CommandGroup {
+public class NewCenter extends CommandGroup {
 
-    public Auto1() {
+    public NewCenter() {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
-    	addSequential(new Go(108));
-    	
-    	
         // these will run in order.
+    	addSequential(new RaiseLift());
+    	addSequential(new GoDistance(90, true));
+    	if(Robot.gameData.charAt(0) == 'R') {
+    		addSequential(new Expel());
+    	}
+    	
+    	
 
         // To run multiple commands at the same time,
         // use addParallel()

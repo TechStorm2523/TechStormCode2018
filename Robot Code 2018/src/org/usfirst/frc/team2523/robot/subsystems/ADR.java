@@ -12,7 +12,7 @@ public class ADR extends PIDSubsystem {
     // Initialize your subsystem here
     public ADR() {
     	
-    	super(.0001,.001,0);
+    	super(.00005,.01,0);
         // Use these to get going:
         // setSetpoint() -  Sets where the PID controller should move the system
         //                  to

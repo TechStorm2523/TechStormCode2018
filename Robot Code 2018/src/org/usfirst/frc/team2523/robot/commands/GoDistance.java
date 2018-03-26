@@ -1,47 +1,55 @@
 package org.usfirst.frc.team2523.robot.commands;
 
 import org.usfirst.frc.team2523.robot.Robot;
-import org.usfirst.frc.team2523.robot.subsystems.LiftSystem;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
  */
-public class liftDown extends Command {
-	
-    public liftDown() {
+public class GoDistance extends Command {
+double inches;
+boolean stopAfter;
+double power;
+
+public GoDistance(double inches) {
+    // Use requires() here to declare subsystem dependencies
+	stopAfter = false;
+    requires(Robot.kAutoDrive);
+    this.inches = inches;
+    power=.5;
+}	
+
+    public GoDistance(double inches, double power) {
         // Use requires() here to declare subsystem dependencies
-        requires(Robot.kLift);
+        requires(Robot.kAutoDrive);
+        this.inches = inches;
+        this.power = power;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.kLift.ReverseLift();
-    
+    	Robot.kAutoDrive.goDistSetup(inches, power);
     	
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.kLift.ReverseLift();
-    	SmartDashboard.putNumber("LiftEncoder", Robot.kLift.getLiftPos());
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return Robot.kAutoDrive.goDist();
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.kLift.StopLift();
+    	
+    		Robot.kAutoDrive.Stop();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	Robot.kLift.StopLift();
     }
 }

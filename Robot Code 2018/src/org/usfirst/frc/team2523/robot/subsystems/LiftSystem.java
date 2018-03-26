@@ -7,6 +7,7 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.Spark;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -29,6 +30,23 @@ public class LiftSystem extends Subsystem {
 		
 		
 	}
+	
+	
+	public void adjLiftSetup(double inches) {
+		
+		double ticks = 1765*inches;
+		
+		if(ticks>L.getSelectedSensorPosition(0))
+		
+	
+		
+		
+	}
+	
+	public boolean adjLift() {
+		
+	}
+	
 	public double getLiftPos() {
 		return  R.getSelectedSensorPosition(0);
 		

@@ -13,7 +13,7 @@ public class ADL extends PIDSubsystem {
     public ADL() {
     	
     	//super(0.0005,0,0);
-    	super(.0001,0.001,0);
+    	super(.00005,0.01,0);
         // Use these to get going:
         // setSetpoint() -  Sets where the PID controller should move the system
         //                  to

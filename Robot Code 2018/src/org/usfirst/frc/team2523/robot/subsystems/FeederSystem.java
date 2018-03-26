@@ -5,63 +5,83 @@ import java.awt.geom.Path2D;
 import org.usfirst.frc.team2523.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.Spark;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
  *
  */
 
-   
-    	public class FeederSystem extends Subsystem {
-    		Spark FeedMotorLeft = new Spark(RobotMap.feedL);
-    		Spark FeedMotorRight = new Spark(RobotMap.feedR);
-    		
-    		
-    		public void Tenderness() {
-    			
-    			FeedMotorLeft.set(.5);
-    			FeedMotorRight.set(-.5);
-    			
-    		}
-    		
-    		public void FeedInL(){
-    			FeedMotorLeft.set(-1);
-    			FeedMotorRight.set(-1);
-    			
-    			
-    			
-    		}
-    		public void FeedInR(){
-    			
-    			FeedMotorRight.set(1);
-    			FeedMotorLeft.set(1);
-    			
-    			
-    		}
-    		
-    		public void FeedIn(){
-    			FeedMotorLeft.set(1);
-    			FeedMotorRight.set(-1);
-    			
-    		}
-    		public void FeedOut(){
-    			FeedMotorLeft.set(-1);
-    			FeedMotorRight.set(1);
-    		}
-    		
-    		public void StopFeed() {
-    			FeedMotorLeft.set(0);
-    			FeedMotorRight.set(0);
-    		}
-    		public void initDefaultCommand() {
-    			// Set the default command for a subsystem here.
-    			
-    		}
-    	}
-    
-    
-    
-    
-   
+
+public class FeederSystem extends Subsystem {
+	Spark FeedMotorLeft = new Spark(RobotMap.feedL);
+	Spark FeedMotorRight = new Spark(RobotMap.feedR);
+
+
+	public void Tenderness() {
+
+		FeedMotorLeft.set(.5);
+		FeedMotorRight.set(-.5);
+
+	}
+
+
+	public void TendernessAuto() {
+
+		FeedMotorLeft.set(.75);
+		FeedMotorRight.set(-.75);
+		
+		
+
+	}
+
+	public void expel() {
+		TendernessAuto();
+		
+		Timer.delay(.6);
+
+		StopFeed();
+
+	}
+
+	public void FeedInL(){
+		FeedMotorLeft.set(-1);
+		FeedMotorRight.set(-1);
+
+
+
+	}
+	public void FeedInR(){
+
+		FeedMotorRight.set(1);
+		FeedMotorLeft.set(1);
+
+
+	}
+
+	public void FeedIn(){
+		FeedMotorLeft.set(1);
+		FeedMotorRight.set(-1);
+
+	}
+	public void FeedOut(){
+		FeedMotorLeft.set(-1);
+		FeedMotorRight.set(1);
+	}
+
+	public void StopFeed() {
+		FeedMotorLeft.set(0);
+		FeedMotorRight.set(0);
+	}
+	public void initDefaultCommand() {
+		// Set the default command for a subsystem here.
+
+	}
+}
+
+
+
+
+
 
 
