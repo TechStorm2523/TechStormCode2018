@@ -1,32 +1,41 @@
 package org.usfirst.frc.team2523.robot.commands;
 
 import org.usfirst.frc.team2523.robot.Robot;
+import org.usfirst.frc.team2523.robot.subsystems.LiftSystem;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
  */
-public class RaiseLift extends Command {
-double inches;
-    public RaiseLift(double inches) {
+public class liftUp extends Command {
+	
+    public liftUp() {
         // Use requires() here to declare subsystem dependencies
         requires(Robot.kLift);
-        this.inches = inches;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.kLift.adjLiftSetup(inches);
+    	Robot.kLift.LiftUp();
+    
+    	
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	if(-1*(Robot.kLift.getLiftPos())<Robot.kLift.MAX_HEIGHT) {
+    		Robot.kLift.LiftUp();
+    	} else {
+    		Robot.kLift.StopLift();
+    	}
+    	SmartDashboard.putNumber("LiftEncoder", Robot.kLift.getLiftPos());
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return Robot.kLift.adjLift();
+        return false;
     }
 
     // Called once after isFinished returns true
@@ -37,5 +46,6 @@ double inches;
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	Robot.kLift.StopLift();
     }
 }

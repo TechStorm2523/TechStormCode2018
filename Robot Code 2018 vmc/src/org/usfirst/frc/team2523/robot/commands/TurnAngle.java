@@ -7,17 +7,21 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class RaiseLift extends Command {
-double inches;
-    public RaiseLift(double inches) {
+public class TurnAngle extends Command {
+double ang;
+double power;
+
+    public TurnAngle(double angle) {
         // Use requires() here to declare subsystem dependencies
-        requires(Robot.kLift);
-        this.inches = inches;
+        requires(Robot.kAutoDrive);
+        ang = angle;
+        power = .5;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.kLift.adjLiftSetup(inches);
+    	Robot.kAutoDrive.turnAngleSetup(ang, power);
+    	
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -26,12 +30,12 @@ double inches;
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return Robot.kLift.adjLift();
+        return Robot.kAutoDrive.turnAngle();
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.kLift.StopLift();
+    	Robot.kAutoDrive.Stop();
     }
 
     // Called when another command which requires one or more of the same

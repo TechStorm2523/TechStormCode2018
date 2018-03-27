@@ -7,17 +7,28 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class RaiseLift extends Command {
-double inches;
-    public RaiseLift(double inches) {
+public class testAutoDrive extends Command {
+
+    public testAutoDrive() {
         // Use requires() here to declare subsystem dependencies
-        requires(Robot.kLift);
-        this.inches = inches;
+        requires(Robot.kAutoDrive);
+        requires(Robot.KADL);
+        requires(Robot.KADR);
+        
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.kLift.adjLiftSetup(inches);
+    	Robot.kAutoDrive.autoSetup();
+    	
+    	Robot.KADL.setAbsoluteTolerance(10);
+    	Robot.KADR.setAbsoluteTolerance(10);
+    	
+    	Robot.KADL.setSetpoint(72*217.3);
+    	Robot.KADR.setSetpoint(72*217.3);
+    	
+    	Robot.KADL.enable();
+    	Robot.KADR.enable();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -26,16 +37,19 @@ double inches;
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return Robot.kLift.adjLift();
+        return Robot.KADR.onTarget();
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.kLift.StopLift();
+    	Robot.KADL.disable();
+    	Robot.KADR.disable();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	Robot.KADL.disable();
+    	Robot.KADR.disable();
     }
 }

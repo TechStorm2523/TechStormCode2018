@@ -7,35 +7,35 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class RaiseLift extends Command {
-double inches;
-    public RaiseLift(double inches) {
+public class FeedOut extends Command {
+
+    public FeedOut() {
         // Use requires() here to declare subsystem dependencies
-        requires(Robot.kLift);
-        this.inches = inches;
+        requires(Robot.kFeederSystem);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.kLift.adjLiftSetup(inches);
+    	Robot.kFeederSystem.FeedOut();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return Robot.kLift.adjLift();
+        return false;
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.kLift.StopLift();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	Robot.kFeederSystem.StopFeed();
     }
 }

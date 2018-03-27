@@ -7,17 +7,30 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class RaiseLift extends Command {
+public class GoDistance extends Command {
 double inches;
-    public RaiseLift(double inches) {
+boolean stopAfter;
+double power;
+
+public GoDistance(double inches) {
+    // Use requires() here to declare subsystem dependencies
+	stopAfter = false;
+    requires(Robot.kAutoDrive);
+    this.inches = inches;
+    power=.5;
+}	
+
+    public GoDistance(double inches, double power) {
         // Use requires() here to declare subsystem dependencies
-        requires(Robot.kLift);
+        requires(Robot.kAutoDrive);
         this.inches = inches;
+        this.power = power;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.kLift.adjLiftSetup(inches);
+    	Robot.kAutoDrive.goDistSetup(inches, power);
+    	
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -26,12 +39,13 @@ double inches;
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return Robot.kLift.adjLift();
+        return Robot.kAutoDrive.goDist();
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.kLift.StopLift();
+    	
+    		Robot.kAutoDrive.Stop();
     }
 
     // Called when another command which requires one or more of the same
