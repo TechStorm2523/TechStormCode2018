@@ -35,7 +35,9 @@ public class driveTeleop extends Subsystem {
 	
 	public void driveSetup() {// Config motors and reset sensors
 		leftF.follow(leftR);
+		leftF.setInverted(true);
 		rightF.follow(rightR);
+		rightF.setInverted(true);
 		leftR.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 10);
 		rightR.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 10);
 		leftR.setSelectedSensorPosition(0, 0, 10);

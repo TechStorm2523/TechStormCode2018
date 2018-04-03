@@ -8,9 +8,9 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  *
  */
-public class AutoCenter extends CommandGroup {
+public class AutoLeftScaleSWITCH extends CommandGroup {
 
-    public AutoCenter() {
+    public AutoLeftScaleSWITCH() {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
@@ -28,32 +28,23 @@ public class AutoCenter extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
     	
-    	Timer.delay(.5);
-    	addSequential(new GetFMS());
     	
-    	if(Robot.gameData.charAt(0) == 'L') {
     	
-    		addSequential(new GoDistance(10, .5));
-    		addSequential(new TurnAngle(45));
-    		addSequential(new GoDistance(72, .5));
-    		addSequential(new TurnAngle(-45));
-    		addParallel(new RaiseLift(30));
-    		addSequential(new GoDistance(57, .5));
-    		addSequential(new Approach());
-    		addSequential(new Expel());
+    	
     		
+    		/**
+    		 * Switch Auto: Drive forward 168 inches at 50%, lift 30 inches, turn right 90 degrees at 50%, expel at at max
+    		 *
+    		 */
     		
-    	} else {
-    		
-    		addSequential(new GoDistance(10, .5));
-    		addSequential(new TurnAngle(-45));
-    		addSequential(new GoDistance(66.5, .5));
-    		addSequential(new TurnAngle(45));
+    		addSequential(new GoDistance(168, .8));
     		addSequential(new RaiseLift(30));
-    		addSequential(new GoDistance(57, .5));
-    		addSequential(new Approach());
+    		addSequential(new TurnAngle(-90));
     		addSequential(new Expel());
     		
-    	}
+    		
+    	
+    	
+    	
     }
 }

@@ -14,24 +14,12 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import org.usfirst.frc.team2523.robot.OI;
 import org.usfirst.frc.team2523.robot.commands.Auto1;
-import org.usfirst.frc.team2523.robot.commands.AutoCenterSL;
-import org.usfirst.frc.team2523.robot.commands.AutoCenterSR;
-import org.usfirst.frc.team2523.robot.commands.AutoLeftScaleBASE;
-import org.usfirst.frc.team2523.robot.commands.AutoLeftScaleSCALE;
-import org.usfirst.frc.team2523.robot.commands.AutoLeftScaleSWITCH;
-import org.usfirst.frc.team2523.robot.commands.AutoLeftSwitchBASE;
-import org.usfirst.frc.team2523.robot.commands.AutoLeftSwitchSCALE;
-import org.usfirst.frc.team2523.robot.commands.AutoLeftSwitchSWITCH;
+import org.usfirst.frc.team2523.robot.commands.AutoCenter;
+import org.usfirst.frc.team2523.robot.commands.AutoLeftScale;
+import org.usfirst.frc.team2523.robot.commands.AutoLeftSwitch;
 import org.usfirst.frc.team2523.robot.commands.AutoRightScale;
-import org.usfirst.frc.team2523.robot.commands.AutoRightScaleBASE;
-import org.usfirst.frc.team2523.robot.commands.AutoRightScaleSCALE;
-import org.usfirst.frc.team2523.robot.commands.AutoRightScaleSWITCH;
-import org.usfirst.frc.team2523.robot.commands.BlankCommand;
-import org.usfirst.frc.team2523.robot.commands.BlankCommandC;
-import org.usfirst.frc.team2523.robot.commands.BlankCommandLSC;
-import org.usfirst.frc.team2523.robot.commands.BlankCommandLSW;
-import org.usfirst.frc.team2523.robot.commands.BlankCommandRSC;
 import org.usfirst.frc.team2523.robot.commands.ExampleCommand;
 //import org.usfirst.frc.team2523.robot.commands.DeluxeChooser;
 import org.usfirst.frc.team2523.robot.commands.driveTest;
@@ -54,13 +42,9 @@ import org.usfirst.frc.team2523.robot.subsystems.driveTeleop;
  */
 public class Robot extends TimedRobot {
 	
-	public final String LSCALE_LABEL = "BlankCommandLSC";
-	public final String LSWITCH_LABEL = "BlankCommandLSW";
-	public final String CENTER_LABEL = "BlankCommandC";
-	public final String RS_LABEL = "BlankCommandRSC";
 	
 	
-	public static String gameData = "";
+	public static String gameData  = "NNN";
 	public static boolean OVR = false;
 	public static final ExampleSubsystem kExampleSubsystem
 			= new ExampleSubsystem();
@@ -102,11 +86,11 @@ public class Robot extends TimedRobot {
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		
 		
-		m_chooser.addObject("Left Scale", new BlankCommandLSC());
-		m_chooser.addObject("Left Switch", new BlankCommandLSW());
-		m_chooser.addObject("Center", new BlankCommandC());
-		m_chooser.addObject("Right Switch", new BlankCommandRSC());
-		System.out.println("Puts Done");
+		m_chooser.addObject("Left Scale - use with 100% center auto", new AutoLeftScale());
+		m_chooser.addObject("Left Switch - use with 50/50 center auto", new AutoLeftSwitch());
+		m_chooser.addObject("Center - use with baseline or scale bots", new AutoCenter());
+		m_chooser.addObject("Right Scale - use when center is covered", new AutoRightScale());
+		
 		//m_chooser.addObject("left Side", new LeftSide());
 		//m_chooser.addObject("right Side", new RightSide());
 		//m_chooser.addObject("deluxe Chooser", new DeluxeChooser()); //From dead center
@@ -139,59 +123,18 @@ public class Robot extends TimedRobot {
 	 * chooser code above (like the commented example) or additional comparisons
 	 * to the switch structure below with additional strings & commands.
 	 */
-	@Override
+	
+	
+	public String getFMS() {
+		return gameData;
+	}
+	
 	public void autonomousInit() {
-		
 		//kLift.liftSetup();
 		System.out.println("Test AutoInit");
 		m_autonomousCommand = m_chooser.getSelected();
 		gameData = DriverStation.getInstance().getGameSpecificMessage();
-		System.out.println("GameData: " + gameData);
-		System.out.println("chooser " + m_chooser.getSelected().getName() );
 		
-		if(m_chooser.getSelected().getName().equals(LSCALE_LABEL)) {
-			if(gameData.charAt(1)=='L') {
-				m_autonomousCommand = new AutoLeftScaleSCALE();
-			} else if(gameData.charAt(0)=='L') {
-				m_autonomousCommand = new AutoLeftScaleSWITCH();
-			} else {
-				m_autonomousCommand = new AutoLeftScaleBASE();
-			}	
-		} else if(m_chooser.getSelected().getName().equals(LSWITCH_LABEL)) { 
-			System.out.println("Chose Switch");
-			
-			if(gameData.charAt(0)=='L') {
-				System.out.println("Chose Switch Again");
-				m_autonomousCommand = new AutoLeftSwitchSWITCH();
-			} else if(gameData.charAt(1)=='L') {
-				m_autonomousCommand = new AutoLeftSwitchSCALE();
-			} else {
-				m_autonomousCommand = new AutoLeftSwitchBASE();
-			}	
-			
-		} else if(m_chooser.getSelected().getName().equals(CENTER_LABEL)) {
-			System.out.println("Chose Center");
-			
-			if(gameData.charAt(0)=='L') {
-				System.out.println("Testi");
-				m_autonomousCommand = new AutoCenterSL();
-			} else {
-				m_autonomousCommand = new AutoCenterSR();
-			}
-			
-			
-		} else if(m_chooser.getSelected().getName().equals(RS_LABEL)) {
-			
-			if(gameData.charAt(1)=='R') {
-				m_autonomousCommand = new AutoRightScaleSCALE();
-			} else if(gameData.charAt(0)=='R') {
-				m_autonomousCommand = new AutoRightScaleSWITCH();
-			} else {
-				m_autonomousCommand = new AutoRightScaleBASE();
-			}	
-			
-		}
-		System.out.println(m_autonomousCommand.getName());
 
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",

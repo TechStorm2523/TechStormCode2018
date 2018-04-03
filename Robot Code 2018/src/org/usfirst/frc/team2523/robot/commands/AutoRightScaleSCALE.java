@@ -8,9 +8,9 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  *
  */
-public class AutoRightScale extends CommandGroup {
+public class AutoRightScaleSCALE extends CommandGroup {
 
-	public AutoRightScale() {
+	public AutoRightScaleSCALE() {
 		// Add Commands here:
 		// e.g. addSequential(new Command1());
 		//      addSequential(new Command2());
@@ -27,12 +27,11 @@ public class AutoRightScale extends CommandGroup {
 		// e.g. if Command1 requires chassis, and Command2 requires arm,
 		// a CommandGroup containing them would require both the chassis and the
 		// arm.
-		Timer.delay(.5);
 		
-		addSequential(new GetFMS());
 
 
-		if(Robot.gameData.charAt(1) == 'R') {
+
+	
 			/**
 			 * Scale Auto: Drive forward 310 inches at 80%, turn right 90 degrees at 50%, drive back 10 inches at 50%, lift to max, expel at at max
 			 *
@@ -48,26 +47,7 @@ public class AutoRightScale extends CommandGroup {
 			addSequential(new Expel());
 
 
-		} else if(Robot.gameData.charAt(0) == 'R') {
-
-			/**
-			 * Switch Auto: Drive forward 168 inches at 50%, lift 30 inches, turn right 90 degrees at 50%, expel at at max
-			 *
-			 */
-
-			addSequential(new GoDistance(168, .8));
-			addSequential(new RaiseLift(30));
-			addSequential(new TurnAngle(90));
-			addSequential(new Expel());
-
-
-		} else {
-			/**
-			 * Fallback: Drive forward 168 at 80%
-			 *
-			 */
-			addSequential(new GoDistance(168, .8));
-		}
+		
 
 
 

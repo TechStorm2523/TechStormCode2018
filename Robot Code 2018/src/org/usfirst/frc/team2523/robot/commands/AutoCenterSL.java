@@ -8,9 +8,9 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  *
  */
-public class AutoCenter extends CommandGroup {
+public class AutoCenterSL extends CommandGroup {
 
-    public AutoCenter() {
+    public AutoCenterSL() {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
@@ -28,32 +28,31 @@ public class AutoCenter extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
     	
-    	Timer.delay(.5);
-    	addSequential(new GetFMS());
     	
-    	if(Robot.gameData.charAt(0) == 'L') {
     	
-    		addSequential(new GoDistance(10, .5));
-    		addSequential(new TurnAngle(45));
-    		addSequential(new GoDistance(72, .5));
-    		addSequential(new TurnAngle(-45));
-    		addParallel(new RaiseLift(30));
-    		addSequential(new GoDistance(57, .5));
-    		addSequential(new Approach());
-    		addSequential(new Expel());
-    		
-    		
-    	} else {
-    		
-    		addSequential(new GoDistance(10, .5));
-    		addSequential(new TurnAngle(-45));
-    		addSequential(new GoDistance(66.5, .5));
-    		addSequential(new TurnAngle(45));
+    	
     		addSequential(new RaiseLift(30));
+    		addSequential(new GoDistance(10, .5));
+    		
+    		System.out.println("Did First Go");
+    		addSequential(new TurnAngle(45));
+    		
+    		System.out.println("Did First Turn");
+    		addSequential(new GoDistance(72, .5));
+    		
+    		System.out.println("Did Second Go");
+    		addSequential(new TurnAngle(-45));
+    		
+    		System.out.println("Did Second Turn");
     		addSequential(new GoDistance(57, .5));
+    		
+    		System.out.println("Did Last Go");
     		addSequential(new Approach());
+    		
+    		System.out.println("Approach");
     		addSequential(new Expel());
     		
-    	}
+    		
+    	
     }
 }

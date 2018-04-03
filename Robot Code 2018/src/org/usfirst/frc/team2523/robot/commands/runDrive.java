@@ -20,7 +20,7 @@ public class runDrive extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		if(!Robot.m_oi.reversed) {
+		if(Robot.m_oi.reversed) {
 			Robot.kDriveTeleop.driveReverse();
 		} else {
 			Robot.kDriveTeleop.drive();

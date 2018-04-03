@@ -43,6 +43,7 @@ public class driveTeleop extends Subsystem {
 		
 	}
     public void drive() {
+    	
     	y = Robot.m_oi.driveStick.getY();
     	t = Robot.m_oi.driveStick.getTwist();
     	

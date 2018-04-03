@@ -37,9 +37,9 @@ public class LiftSystem extends Subsystem {
 		ticks = 1765*inches;
 		
 		if(ticks>getLiftPos()) {
-			setLift(-1);
-		} else if(ticks<getLiftPos()) {
 			setLift(1);
+		} else if(ticks<getLiftPos()) {
+			setLift(-1);
 		}
 		
 	
@@ -49,7 +49,7 @@ public class LiftSystem extends Subsystem {
 	
 	public boolean adjLift() {
 		
-		if(getLiftPos()>ticks) {
+		if(getLiftPos()<-ticks) {
 			
 			return true;
 		}

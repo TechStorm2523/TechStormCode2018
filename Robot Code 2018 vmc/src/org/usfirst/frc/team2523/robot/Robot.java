@@ -43,7 +43,7 @@ public class Robot extends TimedRobot {
 	
 	
 	
-	public static String gameData;
+	public static String gameData  = "NNN";
 	public static boolean OVR = false;
 	public static final ExampleSubsystem kExampleSubsystem
 			= new ExampleSubsystem();
@@ -122,7 +122,12 @@ public class Robot extends TimedRobot {
 	 * chooser code above (like the commented example) or additional comparisons
 	 * to the switch structure below with additional strings & commands.
 	 */
-	@Override
+	
+	
+	public String getFMS() {
+		return gameData;
+	}
+	
 	public void autonomousInit() {
 		//kLift.liftSetup();
 		System.out.println("Test AutoInit");

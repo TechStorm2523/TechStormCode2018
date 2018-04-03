@@ -28,11 +28,14 @@ public class AutoLeftScale extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
     	Timer.delay(.5);
-    	String gameData = Robot.gameData;
     	
     	
     	
-    	if(gameData.charAt(1) == 'L') {
+    	addSequential(new GetFMS());
+    	
+    	
+    	
+    	if(Robot.gameData.charAt(1) == 'L') {
     		/**
     		 * Scale Auto: Drive forward 310 inches at 80%, turn right 90 degrees at 50%, drive back 10 inches at 50%, lift to max, expel at at max
     		 *
@@ -45,7 +48,7 @@ public class AutoLeftScale extends CommandGroup {
     		
     		
     		
-    	} else if(gameData.charAt(0) == 'L') {
+    	} else if(Robot.gameData.charAt(0) == 'L') {
     		
     		/**
     		 * Switch Auto: Drive forward 168 inches at 50%, lift 30 inches, turn right 90 degrees at 50%, expel at at max
