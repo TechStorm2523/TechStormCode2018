@@ -36,6 +36,7 @@ import org.usfirst.frc.team2523.robot.commands.ExampleCommand;
 //import org.usfirst.frc.team2523.robot.commands.DeluxeChooser;
 import org.usfirst.frc.team2523.robot.commands.driveTest;
 import org.usfirst.frc.team2523.robot.commands.testAutoDrive;
+import org.usfirst.frc.team2523.robot.commands.testNewAuto;
 import org.usfirst.frc.team2523.robot.subsystems.ADL;
 import org.usfirst.frc.team2523.robot.subsystems.ADR;
 import org.usfirst.frc.team2523.robot.subsystems.AutoDrive;
@@ -192,7 +193,7 @@ public class Robot extends TimedRobot {
 			
 		}
 		System.out.println(m_autonomousCommand.getName());
-
+		
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
 		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand

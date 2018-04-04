@@ -73,7 +73,6 @@ public class AutoDrive extends Subsystem {
 	double tickDist;
 	public void goDistSetup(double distInch, double power) {
 		System.out.println("Go");
-		driveBusy = true;
 		tickDist = distInch*(117);
 		leftBack.setSelectedSensorPosition(0, 0, 10);
 		rightBack.setSelectedSensorPosition(0, 0, 10);
