@@ -27,6 +27,8 @@ import org.usfirst.frc.team2523.robot.commands.AutoRightScale;
 import org.usfirst.frc.team2523.robot.commands.AutoRightScaleBASE;
 import org.usfirst.frc.team2523.robot.commands.AutoRightScaleSCALE;
 import org.usfirst.frc.team2523.robot.commands.AutoRightScaleSWITCH;
+import org.usfirst.frc.team2523.robot.commands.AutoTest1;
+import org.usfirst.frc.team2523.robot.commands.AutoTest2;
 import org.usfirst.frc.team2523.robot.commands.BlankCommand;
 import org.usfirst.frc.team2523.robot.commands.BlankCommandC;
 import org.usfirst.frc.team2523.robot.commands.BlankCommandLSC;
@@ -193,11 +195,11 @@ public class Robot extends TimedRobot {
 			
 		}
 		System.out.println(m_autonomousCommand.getName());
-		
+		m_autonomousCommand = new AutoTest2();
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
 		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
-		 * = new MyAutoCommand(); break; case "Default Auto": default:
+		 `* = new MyAutoCommand(); break; case "Default Auto": default:
 		 * autonomousCommand = new ExampleCommand(); break; }
 		 */
 

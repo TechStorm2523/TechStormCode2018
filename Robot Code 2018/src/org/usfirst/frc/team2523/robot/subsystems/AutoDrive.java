@@ -71,18 +71,19 @@ public class AutoDrive extends Subsystem {
 	}
 	
 	double tickDist;
+	double ticksAtStart;
 	public void goDistSetup(double distInch, double power) {
 		System.out.println("Go");
 		tickDist = distInch*(117);
-		leftBack.setSelectedSensorPosition(0, 0, 10);
-		rightBack.setSelectedSensorPosition(0, 0, 10);
+		ticksAtStart = getRight();
+		System.out.println("Encoders: " + getRight());
 		setLeft(power);
 		setRight(power);
 	}
 	
 	public boolean goDist() {
 		
-		if(getRight()>tickDist) {
+		if(getRight()-ticksAtStart>tickDist) {
 			driveBusy = false;
 			return true;
 		}
@@ -98,13 +99,17 @@ public class AutoDrive extends Subsystem {
 		
 	}
 	double turnDist;
+	double ticksAtTurnStart;
 	public void turnAngleSetup(double degrees, double power){
 		System.out.println("Turn");
 		turnDist = degrees*42.66;
-		leftBack.setSelectedSensorPosition(0, 0, 10);
-		rightBack.setSelectedSensorPosition(0, 0, 10);
+		turnDist *= .6;
+		System.out.println("Goal for turn = " + turnDist);
+		ticksAtTurnStart = getRight();
+		System.out.println("Encoders set to " + (ticksAtTurnStart - getRight()));
 		setLeft(-power);
 		setRight(power);
+		System.out.println("Motors Set");
 	}
 	public char getSwitchSide() {
 		String gameData;
@@ -122,7 +127,7 @@ public class AutoDrive extends Subsystem {
 	
 		
 		
-		if(getLeft()<turnDist) {
+		if(getRight()-ticksAtTurnStart>turnDist) {
 			
 			return true;
 		}

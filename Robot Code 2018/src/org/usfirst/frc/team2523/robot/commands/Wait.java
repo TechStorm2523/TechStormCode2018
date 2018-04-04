@@ -1,35 +1,22 @@
 package org.usfirst.frc.team2523.robot.commands;
 
-import org.usfirst.frc.team2523.robot.Robot;
-
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class GoDistance extends Command {
-double inches;
-boolean stopAfter;
-double power;
-
-public GoDistance(double inches) {
-    // Use requires() here to declare subsystem dependencies
-	stopAfter = false;
-    requires(Robot.kAutoDrive);
-    this.inches = inches;
-    power=.5;
-}	
-
-    public GoDistance(double inches, double power) {
+public class Wait extends Command {
+	double millisAtStart;
+	
+    public Wait() {
         // Use requires() here to declare subsystem dependencies
-        requires(Robot.kAutoDrive);
-        this.inches = inches;
-        this.power = power;
+        // eg. requires(chassis);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.kAutoDrive.goDistSetup(inches, power);
+    	millisAtStart = System.currentTimeMillis();
     	
     }
 
@@ -39,14 +26,11 @@ public GoDistance(double inches) {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	
-        return Robot.kAutoDrive.goDist();
+        return Math.abs(System.currentTimeMillis()-millisAtStart) > 1;
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	System.out.print("After go, Train = " + Robot.kAutoDrive.getRight());
-    		Robot.kAutoDrive.Stop();
     }
 
     // Called when another command which requires one or more of the same
